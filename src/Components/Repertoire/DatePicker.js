@@ -22,6 +22,8 @@ class DatePicker extends React.Component{
             days.push(
                 <div>
                 <h2>{date.getDate()}</h2>
+                    {['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][date.getDay()]}
+                    <br/>
                 {date.getMonth() + 1}/
                 {date.getFullYear()}
                 {this.props.offset == i &&
@@ -38,18 +40,19 @@ class DatePicker extends React.Component{
                             direction="row"
                             justify="center"
                             alignItems="center"
+                            spacing={1}
                         >
                         {days.map( (e, i) => {
                             if(this.props.offset === i){
 
                                 return (
-                                    <Grid item xs={1}>
+                                    <Grid item>
                                         <Button onClick={() => this.handleDateChange(i)} variant="contained" color="secondary">{e}</Button>
                                     </Grid>
                                 );
                             }else{
                                 return(
-                                    <Grid item xs={1}>
+                                    <Grid item>
                                     <Button onClick={() => this.handleDateChange(i)} variant="contained" color="primary">{e}</Button>
                                     </Grid>
                                 );
