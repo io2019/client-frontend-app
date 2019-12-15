@@ -7,7 +7,9 @@ class MoviePicker extends React.Component{
         return (
             <div>
                 <h1>MoviePicker</h1>
-                <Movie></Movie>
+                <Movie/>
+                <Movie/>
+                <Movie/>
             </div>
 
 
