@@ -52,7 +52,7 @@ class MoviePicker extends React.Component{
                         <TableHead>
                             <TableRow>
                                 <TableCell align="center">title</TableCell>
-                                <TableCell align="center">duration</TableCell>
+                                <TableCell align="center">duration(minutes)</TableCell>
                                 <TableCell align="center">shows</TableCell>
                     </TableRow>
                         </TableHead>
@@ -64,12 +64,12 @@ class MoviePicker extends React.Component{
                                         <TableCell align="center">
                                             <Movie movie={x.movie}/>
                                         </TableCell>
-                                    <TableCell>
+                                    <TableCell align="center">
                                         {x.movie.duration}
                                     </TableCell>
                                     <TableCell align="center">
                                         <Button variant="outlined" color="primary" onClick={() => this.handleClickOpen(x.id)}>
-                                            {x.date.getHours()}.{x.date.getMinutes()}
+                                            {x.date.getHours()}.{x.date.getMinutes() === 0 ? "00" : x.date.getMinutes()}
                                         </Button>
 
                                     </TableCell>

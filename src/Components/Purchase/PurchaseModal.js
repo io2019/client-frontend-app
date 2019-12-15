@@ -7,7 +7,7 @@ class PurchaseModal extends React.Component{
 
         return (
             <>
-            <h1>hello {this.props.id}</h1>
+            <h1>show id: {this.props.id}</h1>
             </>
         )
     }
