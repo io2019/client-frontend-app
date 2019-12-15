@@ -1,35 +1,65 @@
 import React from "react";
-
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
 class DatePicker extends React.Component{
 
     constructor(props) {
         super(props);
+        this.handleDateChange = this.handleDateChange.bind(this);
+    }
+
+
+    handleDateChange(i) {
+        this.props.onDateChange(i);
     }
 
     render() {
         let days = [];
         let date = new Date();
-        for(let i = 0 ; i < 15 ; i++){
-            days.push(<button>
-                <h6>{date.getDate()}</h6>
-                <h6>{date.getMonth() + 1}</h6>
-                <h6>{date.getFullYear()}</h6>
+        for(let i = 0 ; i < 8 ; i++){
+            days.push(
+                <div>
+                <h2>{date.getDate()}</h2>
+                {date.getMonth() + 1}/
+                {date.getFullYear()}
                 {this.props.offset == i &&
-                <h3>
-                    Active
-                </h3>
+                <span></span>
                 }
-            </button>)
+            </div>)
             date.setDate(date.getDate() + 1);
 
         }
         return (
-            <div>
-                <h1>DatePicker</h1>
-                {days.map( x => {
-                    return <div>{x}</div>;
-                })}
-            </div>
+            <>
+                        <Grid
+                            container
+                            direction="row"
+                            justify="center"
+                            alignItems="center"
+                        >
+                        {days.map( (e, i) => {
+                            if(this.props.offset === i){
+
+                                return (
+                                    <Grid item xs={1}>
+                                        <Button onClick={() => this.handleDateChange(i)} variant="contained" color="secondary">{e}</Button>
+                                    </Grid>
+                                );
+                            }else{
+                                return(
+                                    <Grid item xs={1}>
+                                    <Button onClick={() => this.handleDateChange(i)} variant="contained" color="primary">{e}</Button>
+                                    </Grid>
+                                );
+                            }
+
+                        })}
+                        </Grid>
+
+
+            </>
 
         )
     }
