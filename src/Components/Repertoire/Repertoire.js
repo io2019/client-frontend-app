@@ -2,7 +2,8 @@ import React from "react";
 import DatePicker from "./DatePicker";
 import MoviePicker from "./MoviePicker";
 import API from "../../Utils/ApiSide";
-import Grid from "@material-ui/core/Grid";
+import Box from '@material-ui/core/Box';
+import Button from "@material-ui/core/Button";
 
 class Repertoire extends React.Component{
 
@@ -49,7 +50,11 @@ class Repertoire extends React.Component{
     render() {
         return (
             <div>
-                <h1>Repertoire</h1>
+                <Box m={2}>
+                    <Button size="large" variant="outlined" color="primary">
+                        Repertoire
+                    </Button>
+                </Box>
                     <DatePicker offset={this.state.offset} onDateChange={this.dayChosen}/>
 
                 <MoviePicker showtimes={this.state.showtimes}/>
