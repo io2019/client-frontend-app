@@ -10,7 +10,7 @@ class Movie extends React.Component
     render() {
         return (
             <>
-                <Tooltip title={this.props.movie.description}>
+                <Tooltip title={<h2>{this.props.movie.description}</h2>}>
                     <Button>{this.props.movie.title}</Button>
                 </Tooltip>
 

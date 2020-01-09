@@ -4,7 +4,7 @@
 const API = {
     getShowTimes(date){
         let showtime = {};
-        if(date === "2019-11-16"){
+        if(date === "2020-0-9"){
         showtime = {
 
             'showtimes': [
@@ -51,7 +51,7 @@ const API = {
             ]
         }
 
-        }else if(date === "2019-11-17"){
+        }else if(date === "2020-0-10"){
             showtime = {
 
                 'showtimes': [
