@@ -14,7 +14,7 @@ class Payment extends React.Component {
                     alignItems="center"
                     spacing={5}
                 >
-                    {/*<Grid item><Button variant="contained" color="secondary" onClick={this.props.onPreviousState}>Previous</Button></Grid>*/}
+                    <Grid item><Button variant="contained" color="secondary" onClick={this.props.onPreviousState}>Previous</Button></Grid>
                     <Grid item><Button variant="contained" color="primary" onClick={this.props.onNextState}>Next</Button></Grid>
 
                 </Grid>

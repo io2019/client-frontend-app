@@ -37,7 +37,9 @@ class SeatPicker extends React.Component{
     };
 
     handleNextState = () => {
-        this.props.onPickSeats(this.state.checkedSeats);
+        let sortedSeats = this.state.checkedSeats;
+        sortedSeats.sort((a, b) => a - b);
+        this.props.onPickSeats(sortedSeats);
         this.props.onNextState();
     };
 

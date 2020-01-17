@@ -4,6 +4,7 @@ import Alert from "@material-ui/lab/Alert";
 import SeatPicker from "./SeatPicker";
 import ReliefPicker from "./ReliefPicker";
 import Payment from "./Payment";
+import {Container} from "@material-ui/core";
 
 /*      PURCHASE STATES
 *
@@ -50,9 +51,12 @@ class PurchaseModal extends React.Component{
     handlePickSeats = (seats) => {
         this.setState({pickedSeats: seats});
     };
+    handlePickReliefs = (reliefs) => {
+        this.setState({pickedReliefs: reliefs});
+    };
 
     render() {
-        console.log(this.state.pickedSeats);
+        console.log(this.state.pickedReliefs);
         let alertMessage;
         let renderedPurchaseState;
         if(this.state.purchaseState === 'seatPicker') {
@@ -66,6 +70,9 @@ class PurchaseModal extends React.Component{
         } else if (this.state.purchaseState === 'reliefPicker') {
             renderedPurchaseState = <ReliefPicker
                 pickedSeats={this.state.pickedSeats}
+                pickedReliefs={this.state.pickedReliefs}
+                width={this.state.showtime.width}
+                onPickRelief={this.handlePickReliefs}
                 onNextState={this.handleNextState}
                 onPreviousState={this.handlePreviousState}/>
         } else if (this.state.purchaseState === 'payment') {
@@ -79,7 +86,10 @@ class PurchaseModal extends React.Component{
         return (
             <>
                 {alertMessage}
-                {renderedPurchaseState}
+                <Container>
+                    {renderedPurchaseState}
+                </Container>
+
             </>
         )
     }
