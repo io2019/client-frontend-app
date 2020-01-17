@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import Container from "@material-ui/core/Container";
+// import ButtonGroup from "@material-ui/core/ButtonGroup";
+// import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 class DatePicker extends React.Component{
 
@@ -26,10 +26,10 @@ class DatePicker extends React.Component{
                     <br/>
                 {date.getMonth() + 1}/
                 {date.getFullYear()}
-                {this.props.offset == i &&
-                <span></span>
+                {this.props.offset === i &&
+                    <span> </span>
                 }
-            </div>)
+            </div>);
             date.setDate(date.getDate() + 1);
 
         }
@@ -46,13 +46,13 @@ class DatePicker extends React.Component{
                             if(this.props.offset === i){
 
                                 return (
-                                    <Grid item>
+                                    <Grid key={i} item>
                                         <Button onClick={() => this.handleDateChange(i)} variant="contained" color="secondary">{e}</Button>
                                     </Grid>
                                 );
                             }else{
                                 return(
-                                    <Grid item>
+                                    <Grid key={i} item>
                                     <Button onClick={() => this.handleDateChange(i)} variant="contained" color="primary">{e}</Button>
                                     </Grid>
                                 );

@@ -5,8 +5,6 @@ import Button from "@material-ui/core/Button";
 
 class Movie extends React.Component
 {
-
-
     render() {
         return (
             <>
@@ -17,6 +15,6 @@ class Movie extends React.Component
             </>
  )
     }
-};
+}
 
 export default Movie;

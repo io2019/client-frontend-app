@@ -24,10 +24,10 @@ class Repertoire extends React.Component{
     }
 
     dayChosen(offset){
-        console.log(offset)
+        console.log(offset);
         if(offset >= 0 && offset < 8){
 
-            let newDate = new Date()
+            let newDate = new Date();
             console.log(newDate.getDate());
             newDate.setDate(newDate.getDate() + parseInt(offset));
             let date = newDate.getFullYear() + "-" + newDate.getMonth() + "-" + newDate.getDate();

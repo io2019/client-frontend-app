@@ -17,7 +17,7 @@ class MoviePicker extends React.Component{
     state = {
         "open" : false,
         "id" : 0
-    }
+    };
 
     handleClickOpen = (x) => {
         this.setState(
@@ -59,8 +59,8 @@ class MoviePicker extends React.Component{
                         <TableBody>
                             {
                                 typeof this.props.showtimes === "undefined" ? 'We don\'t play movies that day.' :
-                                this.props.showtimes.map(x => {
-                                return <TableRow>
+                                this.props.showtimes.map((x, key) => {
+                                return <TableRow key={key}>
                                         <TableCell align="center">
                                             <Movie movie={x.movie}/>
                                         </TableCell>
@@ -78,7 +78,7 @@ class MoviePicker extends React.Component{
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
+                <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth="xl" aria-labelledby="form-dialog-title">
                     <DialogTitle id="max-width-dialog-title">Purchase</DialogTitle>
                     <PurchaseModal id={this.state.id}/>
                 </Dialog>
