@@ -46,9 +46,6 @@ class SeatPicker extends React.Component{
     render() {
         let width = this.props.width;
         let seats2d = this.props.seats;
-        // let seats2d = [];
-        // while(seats1d.length) seats2d.push(seats1d.splice(0,width));
-        // console.log(seats2d);
         return (
             <>
                 <h1>SeatPicker</h1>
@@ -123,8 +120,16 @@ class SeatPicker extends React.Component{
                     alignItems="center"
                     spacing={5}
                 >
-                    {/*<Grid item><Button variant="contained" color="secondary" onClick={this.props.onPreviousState}>Previous</Button></Grid>*/}
-                    <Grid item><Button variant="contained" color="primary" onClick={this.handleNextState}>Next</Button></Grid>
+                    <Grid item>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            disabled={this.state.checkedSeats.length === 0}
+                            onClick={this.handleNextState}
+                        >
+                            Next
+                        </Button>
+                    </Grid>
 
                 </Grid>
             </>
