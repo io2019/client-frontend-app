@@ -20,7 +20,8 @@ class PurchaseModal extends React.Component{
         pickedSeats: [],
         pickedReliefs: [],
         alertMsg: "",
-        seatsChanged: false
+        seatsChanged: false,
+        clientInfo: {}
     };
     array1dTo2d = (array, length) => {
         let seats1d = array.map(el => el);
@@ -58,8 +59,12 @@ class PurchaseModal extends React.Component{
     handleChangeSeats = (change) => {
         this.setState({seatsChanged: change});
     };
+    handlePaymentSubmit = (client) => {
+      this.setState({clientInfo: client});
+    };
+
     render() {
-        console.log(this.state.pickedReliefs);
+        console.log(this.state.clientInfo);
         let alertMessage;
         let renderedPurchaseState;
         if(this.state.purchaseState === 'seatPicker') {
@@ -84,8 +89,13 @@ class PurchaseModal extends React.Component{
             />
         } else if (this.state.purchaseState === 'payment') {
             renderedPurchaseState = <Payment
+                pickedSeats={this.state.pickedSeats}
+                pickedReliefs={this.state.pickedReliefs}
+                width={this.state.showtime.width}
                 onNextState={this.handleNextState}
-                onPreviousState={this.handlePreviousState}/>
+                onPreviousState={this.handlePreviousState}
+                onSubmit={this.handlePaymentSubmit}
+            />
         }
         if(this.state.alertMsg){
             alertMessage = <Alert severity="error">{this.state.alertMsg}</Alert>

@@ -6,6 +6,8 @@ import Paper from "@material-ui/core/Paper";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
+import "../../App.css"
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
 class ReliefPicker extends React.Component {
     state = {
@@ -36,13 +38,12 @@ class ReliefPicker extends React.Component {
         this.props.onPickRelief(this.state.pickedReliefs);
         this.props.onNextState();
     };
-
     render() {
         return(
             <>
                 <h1>Relief</h1>
-                <TableContainer component={Paper}>
-                    <Table aria-label="relief table">
+                <TableContainer className="container" component={Paper}>
+                    <Table stickyHeader aria-label="relief table">
                         <TableHead>
                             <TableRow>
                                 <TableCell>Row</TableCell>
@@ -56,7 +57,7 @@ class ReliefPicker extends React.Component {
 
                                 return (
                                     <React.Fragment key={i}>
-                                        <TableRow>
+                                        <TableRow hover>
                                             <TableCell>{this.rowWithSeat(seat)}</TableCell>
                                             <TableCell>{this.seatInRow(seat)}</TableCell>
                                             <TableCell>
@@ -86,7 +87,7 @@ class ReliefPicker extends React.Component {
                 <Grid
                     container
                     direction="row"
-                    justify="flex-end"
+                    justify="space-between"
                     alignItems="center"
                     spacing={5}
                 >
