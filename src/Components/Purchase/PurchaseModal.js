@@ -19,7 +19,8 @@ class PurchaseModal extends React.Component{
         showtime: API.getShowtimeById(this.props.id),
         pickedSeats: [],
         pickedReliefs: [],
-        alertMsg: ""
+        alertMsg: "",
+        seatsChanged: false
     };
     array1dTo2d = (array, length) => {
         let seats1d = array.map(el => el);
@@ -54,7 +55,9 @@ class PurchaseModal extends React.Component{
     handlePickReliefs = (reliefs) => {
         this.setState({pickedReliefs: reliefs});
     };
-
+    handleChangeSeats = (change) => {
+        this.setState({seatsChanged: change});
+    };
     render() {
         console.log(this.state.pickedReliefs);
         let alertMessage;
@@ -66,15 +69,19 @@ class PurchaseModal extends React.Component{
                 pickedSeats={this.state.pickedSeats}
                 onPickSeats={this.handlePickSeats}
                 onNextState={this.handleNextState}
+                onSeatsChange={this.handleChangeSeats}
                 />
         } else if (this.state.purchaseState === 'reliefPicker') {
             renderedPurchaseState = <ReliefPicker
                 pickedSeats={this.state.pickedSeats}
                 pickedReliefs={this.state.pickedReliefs}
                 width={this.state.showtime.width}
+                seatsChanged={this.state.seatsChanged}
                 onPickRelief={this.handlePickReliefs}
                 onNextState={this.handleNextState}
-                onPreviousState={this.handlePreviousState}/>
+                onPreviousState={this.handlePreviousState}
+                onSeatsChange={this.handleChangeSeats}
+            />
         } else if (this.state.purchaseState === 'payment') {
             renderedPurchaseState = <Payment
                 onNextState={this.handleNextState}

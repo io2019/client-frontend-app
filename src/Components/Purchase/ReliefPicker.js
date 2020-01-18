@@ -9,19 +9,8 @@ import Radio from "@material-ui/core/Radio";
 
 class ReliefPicker extends React.Component {
     state = {
-      pickedReliefs: this.props.pickedReliefs.length === 0 ? this.props.pickedSeats.map(() => "normal") :this.props.pickedReliefs
+      pickedReliefs: this.props.seatsChanged ? this.props.pickedSeats.map(() => "normal") :this.props.pickedReliefs
     };
-
-    // setPickedReliefs = () => {
-    //     let propReliefs = this.props.pickedReliefs;
-    //     let stateReliefs = this.state.pickedReliefs;
-    //     let seats = this.props.pickedSeats;
-    //
-    //     if (seats.length === stateReliefs.length) {
-    //         let diff = stateReliefs -
-    //     }
-    //     this.props.pickedReliefs.length === 0 ? this.props.pickedSeats.map(() => "normal") :this.props.pickedReliefs
-    // };
 
     rowWithSeat = (seat) => Math.floor(seat / this.props.width) + 1;
     seatInRow = (seat) => seat % this.props.width + 1;
@@ -37,17 +26,18 @@ class ReliefPicker extends React.Component {
         }
         this.setState({pickedReliefs: newPickedReliefs})
     };
+    handlePreviousState = () => {
+        this.props.onSeatsChange(false);
+        this.props.onPickRelief(this.state.pickedReliefs);
+        this.props.onPreviousState();
+    };
     handleNextState = () => {
-      this.props.onPickRelief(this.state.pickedReliefs);
-      this.props.onNextState();
+        this.props.onSeatsChange(false);
+        this.props.onPickRelief(this.state.pickedReliefs);
+        this.props.onNextState();
     };
 
     render() {
-        // if(this.props.pickedReliefs === []){
-        //     console.log('xd');
-        //     this.setState({pickedReliefs: this.props.pickedSeats.map(() => "normal")});
-        // }
-        console.log(this.props.pickedReliefs);
         return(
             <>
                 <h1>Relief</h1>
@@ -100,7 +90,7 @@ class ReliefPicker extends React.Component {
                     alignItems="center"
                     spacing={5}
                 >
-                    <Grid item><Button variant="contained" color="secondary" onClick={this.props.onPreviousState}>Previous</Button></Grid>
+                    <Grid item><Button variant="contained" color="secondary" onClick={this.handlePreviousState}>Previous</Button></Grid>
                     <Grid item><Button variant="contained" color="primary" onClick={this.handleNextState}>Next</Button></Grid>
 
                 </Grid>

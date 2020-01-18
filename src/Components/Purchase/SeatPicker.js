@@ -8,7 +8,8 @@ import FormGroup from "@material-ui/core/FormGroup";
 
 class SeatPicker extends React.Component{
     state = {
-        checkedSeats: this.props.pickedSeats
+        checkedSeats: this.props.pickedSeats,
+        seatsChanged: false
     };
 
     isChecked = (seat) => {
@@ -26,6 +27,7 @@ class SeatPicker extends React.Component{
     handleCheckboxChange = event => {
         let value = parseInt(event.target.value);
         let newCheckedSeats = this.state.checkedSeats;
+        this.setState({seatsChanged: true});
         if(this.isChecked(value)) {
             console.log(newCheckedSeats);
             newCheckedSeats = this.state.checkedSeats.filter(seat => seat !== value);
@@ -40,10 +42,14 @@ class SeatPicker extends React.Component{
         let sortedSeats = this.state.checkedSeats;
         sortedSeats.sort((a, b) => a - b);
         this.props.onPickSeats(sortedSeats);
+        this.props.onSeatsChange(this.state.seatsChanged);
         this.props.onNextState();
     };
 
     render() {
+        if(this.state.checkedSeats !== this.props.pickedSeats) {
+
+        }
         let width = this.props.width;
         let seats2d = this.props.seats;
         return (
