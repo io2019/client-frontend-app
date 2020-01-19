@@ -6,6 +6,7 @@ import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "
 import SendIcon from '@material-ui/icons/Send';
 import "../../App.css"
 import TextField from "@material-ui/core/TextField";
+import Box from "@material-ui/core/Box";
 
 class Payment extends React.Component {
 
@@ -101,12 +102,6 @@ class Payment extends React.Component {
                                 variant="outlined"
                             />
                         </Grid>
-                        <Grid item xs={6}>
-                            <Button disabled={!this.state.isValid} variant="contained" color="primary" onClick={this.handleSubmit} size="large">
-                                <SendIcon/>
-                                Submit
-                            </Button>
-                        </Grid>
                     </Grid>
                     <Grid item xs={12} sm={6} >
                         <TableContainer className="container" component={Paper}>
@@ -138,16 +133,13 @@ class Payment extends React.Component {
                         </TableContainer>
                     </Grid>
                 </Grid>
-                <Grid
-                    container
-                    direction="row"
-                    justify="flex-start"
-                    alignItems="center"
-                    spacing={5}
-                >
-                    <Grid item><Button variant="contained" color="secondary" onClick={this.props.onPreviousState}>Previous</Button></Grid>
-                </Grid>
-
+                <Box m={2}>
+                    <Button variant="contained" color="secondary" onClick={this.props.onPreviousState}>Previous</Button>
+                    <Button disabled={!this.state.isValid} variant="contained" color="primary" onClick={this.handleSubmit} size="large">
+                        <SendIcon/>
+                        Submit
+                    </Button>git
+                </Box>
             </>
         )
     }
