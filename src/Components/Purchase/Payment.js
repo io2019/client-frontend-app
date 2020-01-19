@@ -147,6 +147,7 @@ class Payment extends React.Component {
                 >
                     <Grid item><Button variant="contained" color="secondary" onClick={this.props.onPreviousState}>Previous</Button></Grid>
                 </Grid>
+
             </>
         )
     }

@@ -8,6 +8,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import "../../App.css"
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import Box from "@material-ui/core/Box";
 
 class ReliefPicker extends React.Component {
     state = {
@@ -84,17 +85,21 @@ class ReliefPicker extends React.Component {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <Grid
-                    container
-                    direction="row"
-                    justify="space-between"
-                    alignItems="center"
-                    spacing={5}
-                >
+                {/*<Grid*/}
+                {/*    container*/}
+                {/*    direction="row"*/}
+                {/*    justify="space-between"*/}
+                {/*    alignItems="center"*/}
+                {/*    spacing={5}*/}
+                {/*>*/}
+                {/*    <Grid item><Button variant="contained" color="secondary" onClick={this.handlePreviousState}>Previous</Button></Grid>*/}
+                {/*    <Grid item><Button variant="contained" color="primary" onClick={this.handleNextState}>Next</Button></Grid>*/}
+
+                {/*</Grid>*/}
+                <Box m={2}>
                     <Grid item><Button variant="contained" color="secondary" onClick={this.handlePreviousState}>Previous</Button></Grid>
                     <Grid item><Button variant="contained" color="primary" onClick={this.handleNextState}>Next</Button></Grid>
-
-                </Grid>
+            </Box>
             </>
         )
     }
