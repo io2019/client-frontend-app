@@ -4,7 +4,11 @@ import Grid from "@material-ui/core/Grid";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
-// import {FormControlLabel} from "@material-ui/core";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import Box from '@material-ui/core/Box';
+import TableRow from '@material-ui/core/TableRow';
 
 class SeatPicker extends React.Component{
     state = {
@@ -54,38 +58,64 @@ class SeatPicker extends React.Component{
         let seats2d = this.props.seats;
         return (
             <>
-                <h1>SeatPicker</h1>
-                <FormControl component={Grid}>
-                    {seats2d.map((seatsRow, i) => {
+            <h2>SeatPicker</h2>
+                <Table size="small" padding="none">
+                    <TableBody>
+                        <FormControl component={Grid}>
+                            {seats2d.map((seatsRow, i) => {
 
-                        return(
-                            <React.Fragment key={i}>
-                                <FormGroup row>
-                                    {seatsRow.map((seat, j) => {
-                                    if (seat === 1){
+                                    return(<FormGroup row><TableRow size="small">
+                                        <React.Fragment key={i}>
 
-                                        return(
-                                            <React.Fragment key={width*i+j}>
-                                                <Checkbox disabled checked/>
-                                            </React.Fragment>
-                                        )
-                                    }
-                                    else {
-                                        return(
-                                            <React.Fragment key={width*i+j}>
-                                                <Checkbox
-                                                    checked={this.isChecked(width*i+j)}
-                                                    value={width*i+j}
-                                                    onChange={this.handleCheckboxChange}
-                                                />
-                                            </React.Fragment>
-                                        )}
-                                    })}
-                                </FormGroup>
-                            </React.Fragment>)
-                        }
-                    )}
-                </FormControl>
+                                                {seatsRow.map((seat, j) => {
+                                                    if (seat === 1){
+
+                                                        return(
+                                                            <TableCell size="small">
+                                                            <React.Fragment key={width*i+j}>
+                                                                <Checkbox size="small" disabled checked/>
+                                                            </React.Fragment>
+                                                            </TableCell>
+                                                        )
+                                                    }
+                                                    else {
+                                                        return(
+                                                            <TableCell size="small">
+                                                            <React.Fragment key={width*i+j}>
+                                                                <Checkbox
+                                                                    size="small"
+                                                                    checked={this.isChecked(width*i+j)}
+                                                                    value={width*i+j}
+                                                                    onChange={this.handleCheckboxChange}
+                                                                />
+                                                            </React.Fragment>
+                                                            </TableCell>
+                                                        )}
+                                                })}
+                                                <TableCell size="small">
+                                                {i + 1}
+                                                </TableCell>
+
+                                        </React.Fragment>
+                                        </TableRow>
+                                        </FormGroup>
+                                    )
+                                }
+                            )}
+                        </FormControl>
+                    </TableBody>
+                </Table>
+                <Box m={2} >
+                <Button
+                    variant="contained"
+                    color="primary"
+                    disabled={this.state.checkedSeats.length === 0}
+                    onClick={this.handleNextState}
+                >
+                    Next
+                </Button>
+                </Box>
+
                 {/*<Grid*/}
                 {/*    container*/}
                 {/*    direction="row"*/}
@@ -119,25 +149,17 @@ class SeatPicker extends React.Component{
                 {/*        )}*/}
                 {/*    })}*/}
                 {/*</Grid>*/}
-                <Grid
-                    container
-                    direction="row"
-                    justify="flex-end"
-                    alignItems="center"
-                    spacing={5}
-                >
-                    <Grid item>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            disabled={this.state.checkedSeats.length === 0}
-                            onClick={this.handleNextState}
-                        >
-                            Next
-                        </Button>
-                    </Grid>
+                {/*<Grid*/}
+                {/*    container*/}
+                {/*    direction="row"*/}
+                {/*    justify="flex-end"*/}
+                {/*    alignItems="center"*/}
+                {/*    spacing={5}*/}
+                {/*>*/}
+                {/*    <Grid item>*/}
+                {/*    </Grid>*/}
 
-                </Grid>
+                {/*</Grid>*/}
             </>
         )
     }

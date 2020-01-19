@@ -101,7 +101,27 @@ const API = {
                             "description": "Kornel - an ornithologist who became the most popular Polish scientist, has married a famous pop singer. However, the bride runs from the church, on the way kissing one of the guests.",
                             "duration": 110
                         }
-                    }
+                    },
+                    {
+                        "id": 5,
+                        "date": new Date("2019-11-16T19:00:00Z"),
+                        "movie": {
+                            "id": 988332,
+                            "title": "Avatar",
+                            "description": "Kornel - an ornithologist who became the most popular Polish scientist, has married a famous pop singer. However, the bride runs from the church, on the way kissing one of the guests.",
+                            "duration": 140
+                        }
+                    },
+                    {
+                        "id": 5,
+                        "date": new Date("2019-11-16T20:00:00Z"),
+                        "movie": {
+                            "id": 988332,
+                            "title": "Avatar",
+                            "description": "Kornel - an ornithologist who became the most popular Polish scientist, has married a famous pop singer. However, the bride runs from the church, on the way kissing one of the guests.",
+                            "duration": 140
+                        }
+                    },
                 ]
             }
         }

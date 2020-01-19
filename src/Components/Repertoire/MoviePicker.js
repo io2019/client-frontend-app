@@ -9,8 +9,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import PurchaseModal from "../Purchase/PurchaseModal";
+
 
 class MoviePicker extends React.Component{
 
@@ -37,9 +37,6 @@ class MoviePicker extends React.Component{
         )
     };
 
-    clickHandler(id){
-
-    }
     render() {
 
 
@@ -79,7 +76,6 @@ class MoviePicker extends React.Component{
                     </Table>
                 </TableContainer>
                 <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth="xl" aria-labelledby="form-dialog-title">
-                    <DialogTitle id="max-width-dialog-title">Purchase</DialogTitle>
                     <PurchaseModal id={this.state.id}/>
                 </Dialog>
             </>
