@@ -33,14 +33,16 @@ const API = {
             }
         }else{
             showroom.data.takenSeats.forEach((x) => {
-                seats[parseInt(x) / parseInt(width)][parseInt(x) % parseInt(width)] = 1;
+                seats[parseInt(parseInt(x) / parseInt(width))][parseInt(parseInt(x) % parseInt(width))] = 1;
+                console.log(parseInt(x) / parseInt(width))
+                console.log(parseInt(width))
+            })
                 showtime = {
                     width: width,
                     height: height,
                     seats: seats
 
                 }
-            })
         }
     console.log(showtime)
         return showtime;
@@ -60,9 +62,9 @@ const API = {
                 "seatPosition": x,
                 "ticketType": {
                     'id': (reliefs[i] == "reduced"? 12 : 11),
-                    "name": reliefs[i],
-                    "price": (reliefs[i] == "reduced"? 21 : 26),
-                    "isActive": true
+                    // "name": reliefs[i],
+                    // "price": (reliefs[i] == "reduced"? 21 : 26),
+                    // "isActive": true
                 },
                 "showtimeId":showId
             })
