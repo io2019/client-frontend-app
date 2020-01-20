@@ -1,132 +1,81 @@
+function zeros(dimensions) {
+    var array = [];
+
+    for (var i = 0; i < dimensions[0]; ++i) {
+        array.push(dimensions.length == 1 ? 0 : zeros(dimensions.slice(1)));
+    }
+
+    return array;
+}
+
 const API = {
-    getShowtimeById(id){
+    async getShowtimeById(id){
+        const axios = require('axios').default;
+        const showroom = await axios.get("http://localhost:8080/showtimes/" + id);
+        // if(id === 1){
+        //     showtime = {
+        //         width: 21,
+        //         height: 15,
+        //         seats: [0,1,1,1,1,1,0,1,0,1,0,1,0,0,1,0,0,1,0,0,1,0,1,0,1,1,0,1,0,0,0,1,0,0,1,0,0,1,1,1,0,0,1,0,1,0,0,1,1,1,1,1,1,0,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,1,1,0,0,1,1,0,1,0,1,0,1,0,0,0,0,1,0,1,0,1,1,1,1,1,1,1,0,1,0,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,0,0,0,1,0,0,1,1,0,0,0,1,1,0,0,1,1,0,1,1,1,1,1,1,0,1,1,0,1,1,1,1,0,1,1,0,1,0,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,0,1,0,0,0,0,0,1,1,1,0,0,1,0,0,1,0,0,0,1,0,1,1,0,1,0,1,0,1,0,0,0,1,0,0,1,0,1,0,0,1,1,0,1,0,0,0,1,1,1,1,0,0,1,1,1,0,0,1,1,0,1,1,1,0,0,1,1,1,0,1,0,0,0,1,0,0,0,1,0,1,1,1,1,1,0,0,0,1,1,1,0,0,0,0,0,1,1,1,1,0,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,1,0,0,0,1,0,1,0,0,1,0]
+        //     }
+        // }
+        const width = showroom.data.showroom.noOfColumns;
+        const height= showroom.data.showroom.noOfRows;
+        const seats = zeros([width, height])
         let showtime = {};
-        if(id === 1){
+        console.log(showroom.data.takenSeats.length)
+        if(showroom.data.takenSeats.length == 0){
             showtime = {
-                width: 21,
-                height: 15,
-                seats: [0,1,1,1,1,1,0,1,0,1,0,1,0,0,1,0,0,1,0,0,1,0,1,0,1,1,0,1,0,0,0,1,0,0,1,0,0,1,1,1,0,0,1,0,1,0,0,1,1,1,1,1,1,0,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,1,1,0,0,1,1,0,1,0,1,0,1,0,0,0,0,1,0,1,0,1,1,1,1,1,1,1,0,1,0,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,0,0,0,1,0,0,1,1,0,0,0,1,1,0,0,1,1,0,1,1,1,1,1,1,0,1,1,0,1,1,1,1,0,1,1,0,1,0,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,0,1,0,0,0,0,0,1,1,1,0,0,1,0,0,1,0,0,0,1,0,1,1,0,1,0,1,0,1,0,0,0,1,0,0,1,0,1,0,0,1,1,0,1,0,0,0,1,1,1,1,0,0,1,1,1,0,0,1,1,0,1,1,1,0,0,1,1,1,0,1,0,0,0,1,0,0,0,1,0,1,1,1,1,1,0,0,0,1,1,1,0,0,0,0,0,1,1,1,1,0,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,1,0,0,0,1,0,1,0,0,1,0]
+                width: width,
+                height: height,
+                seats: seats
+
             }
+        }else{
+            showroom.data.takenSeats.forEach((x) => {
+                seats[parseInt(x) / parseInt(width)][parseInt(x) % parseInt(width)] = 1;
+                showtime = {
+                    width: width,
+                    height: height,
+                    seats: seats
+
+                }
+            })
         }
-        if(id === 2){
-            showtime = {
-                width: 21,
-                height: 15,
-                seats: [0,1,0,0,0,1,1,0,1,0,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,0,0,1,0,1,0,0,1,0,0,1,0,1,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,1,0,0,1,1,0,1,0,1,0,1,1,1,0,0,1,0,0,0,0,1,0,0,1,0,1,0,1,1,0,0,1,0,0,1,1,1,0,0,1,0,0,0,1,0,1,1,1,0,1,0,1,1,0,0,1,1,1,1,0,1,1,0,0,1,0,1,0,0,1,0,1,0,0,1,1,1,0,0,1,1,1,0,0,1,0,1,1,0,0,1,0,1,1,1,1,1,1,1,0,0,1,1,1,1,0,0,0,1,1,1,0,0,1,0,0,1,1,1,0,1,1,1,0,1,1,0,1,1,0,0,1,0,1,1,1,0,1,0,1,1,0,1,0,0,0,1,0,0,0,0,0,1,1,0,1,0,0,0,1,0,0,0,0,1,1,0,1,0,1,0,0,1,0,1,1,0,1,1,1,1,0,1,1,0,1,1,0,0,0,0,0,0,0,1,1,0,1,1,1,1,1,0,0,1,0,0,0,1,1,1,1,1,0,1,1,1,0,1,0,1,1,0,1,0,1,1,1,0,0,1,1,1,1,1,0,1,0,1,1]
-            }
-        }
-        if(id === 3){
-            showtime = {
-                width: 20,
-                height: 15,
-                seats: [1,1,1,0,0,1,0,0,0,1,1,0,0,1,1,1,0,0,0,0,0,1,0,1,0,1,1,0,0,1,0,0,1,0,0,1,1,0,0,1,1,0,1,0,0,1,0,1,0,0,0,0,1,0,1,1,0,1,1,1,0,1,1,0,0,0,0,0,1,0,1,0,0,1,1,1,1,1,1,1,0,1,0,1,1,1,1,0,0,1,1,1,1,0,0,0,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,0,1,0,0,1,1,1,0,0,0,1,0,1,1,0,1,0,0,1,1,0,1,1,0,0,1,0,0,0,1,1,1,0,1,0,1,1,0,0,1,0,0,1,0,0,1,1,0,1,1,0,1,1,0,1,0,0,0,0,0,1,1,0,1,0,1,0,0,1,0,0,0,0,0,1,1,0,1,0,0,1,1,0,1,1,0,0,1,1,0,1,1,0,0,1,1,0,0,0,0,0,1,0,1,1,0,1,0,1,0,1,1,0,1,1,1,0,1,0,0,0,1,0,0,1,0,0,1,0,1,1,1,1,0,0,1,0,1,1,1,1,0,1,0,1,0,1,1,1,0,1,0,0,0,1,1,0,1,0,1,1,0,1,1,1,0,1,1,0,0,1,1,0,0,0,1,1,1,0,1,1,1,1,0,1,1,1,0]
-            }
-        }
-        if(id === 4){
-            showtime = {
-                width: 16,
-                height: 10,
-                seats: [1,0,1,0,1,0,1,1,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,0,1,0,1,1,1,1,1,0,0,0,1,1,1,0,1,1,0,1,0,0,0,0,1,1,0,1,1,0,0,0,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,0,0,1,0,0,1,0,0,0,0,0,1,0,0,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,0,0,0,1,1,1,1,0,0,0,0,1,0,1,1,0,0,0,1,1,1,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,1,0]
-            }
-        }
-        if(id === 5){
-            showtime = {
-                width: 16,
-                height: 10,
-                seats: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-                ]
-            }
-        }
+    console.log(showtime)
         return showtime;
     },
-    getShowTimes(date){
-        let showtime = {};
-        if(date === "2020-0-18"){
-        showtime = {
+   async getShowTimes(date){
+        const axios = require('axios').default;
+        const response = await axios.get('http://localhost:8080/showtimes?startDate=' + date + "T0000" + "&endDate=" + date  + "T2400");
+        //  const response = await axios.get("http://localhost:8080/showtimes/5");
 
-            'showtimes': [
-                {
-                    "id": 1,
-                    "date": new Date("2019-11-16T17:00:00Z"),
-                    "movie": {
-                        "id": 988332,
-                        "title": "Tusk",
-                        "description": "A brash and arrogant podcaster gets more than he bargained for when he travels to Canada to interview a mysterious recluse... who has a rather disturbing fondness for walruses.",
-                        "duration": 110
-                    }
+        return response.data ? response.data : [];
+    },
+    async payment(client, seats, reliefs, showId){
+        const axios = require('axios').default;
+        const seatsReliefs = []
+        seats.forEach((x, i) => {
+            seatsReliefs.push({
+                "seatPosition": x,
+                "ticketType": {
+                    'id': (reliefs[i] == "reduced"? 12 : 11),
+                    "name": reliefs[i],
+                    "price": (reliefs[i] == "reduced"? 21 : 26),
+                    "isActive": true
                 },
-                {
-                    "id": 2,
-                    "date": new Date("2019-11-16T15:00:00Z"),
-                    "movie": {
-                        "id": 1312323,
-                        "title": "Avatar",
-                        "description": "With the help of a German bounty hunter, a freed slave sets out to rescue his wife from a brutal Mississippi plantation owner.",
-                        "duration": 180
-                    }
-                },
-                {
-                    "id": 3,
-                    "date": new Date("2019-11-16T15:00:00Z"),
-                    "movie": {
-                        "id": 1312323,
-                        "title": "Django",
-                        "description": "With the help of a German bounty hunter, a freed slave sets out to rescue his wife from a brutal Mississippi plantation owner.",
-                        "duration": 180
-                    }
-                },
-                {
-                    "id": 4,
-                    "date": new Date("2019-11-16T18:30:00Z"),
-                    "movie": {
-                        "id": 1312323,
-                        "title": "Django",
-                        "description": "With the help of a German bounty hunter, a freed slave sets out to rescue his wife from a brutal Mississippi plantation owner.",
-                        "duration": 180
-                    }
-                }
-            ]
-        }
-
-        }else if(date === "2020-0-19"){
-            showtime = {
-
-                'showtimes': [
-                    {
-                        "id": 5,
-                        "date": new Date("2019-11-16T20:45:00Z"),
-                        "movie": {
-                            "id": 988332,
-                            "title": "Testosteron",
-                            "description": "Kornel - an ornithologist who became the most popular Polish scientist, has married a famous pop singer. However, the bride runs from the church, on the way kissing one of the guests.",
-                            "duration": 110
-                        }
-                    },
-                    {
-                        "id": 5,
-                        "date": new Date("2019-11-16T19:00:00Z"),
-                        "movie": {
-                            "id": 988332,
-                            "title": "Avatar",
-                            "description": "Kornel - an ornithologist who became the most popular Polish scientist, has married a famous pop singer. However, the bride runs from the church, on the way kissing one of the guests.",
-                            "duration": 140
-                        }
-                    },
-                    {
-                        "id": 5,
-                        "date": new Date("2019-11-16T20:00:00Z"),
-                        "movie": {
-                            "id": 988332,
-                            "title": "Avatar",
-                            "description": "Kornel - an ornithologist who became the most popular Polish scientist, has married a famous pop singer. However, the bride runs from the church, on the way kissing one of the guests.",
-                            "duration": 140
-                        }
-                    },
-                ]
-            }
-        }
-
-        return showtime
+                "showtimeId":showId
+            })
+        })
+        await axios.post('http://localhost:8080/orders/', {
+            "client": client,
+            "tickets": seatsReliefs
+        }).then(function (response) {
+            console.log(response);
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 };
 

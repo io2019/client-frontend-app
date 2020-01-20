@@ -10,30 +10,34 @@ class Repertoire extends React.Component{
     constructor(props) {
         super(props);
         this.todayDate = new Date();
-        let date = this.todayDate.getFullYear() + "-" + this.todayDate.getMonth() + "-" + this.todayDate.getDate();
         this.state = {
                 'date' : {
                     'year': this.todayDate.getFullYear(),
                     'month': this.todayDate.getMonth(),
                     'day': this.todayDate.getDate()
                 },
-            'showtimes': API.getShowTimes(date).showtimes,
+            'showtimes':  [],
                 'offset': 0
             };
         this.dayChosen= this.dayChosen.bind(this);
     }
 
-    dayChosen(offset){
-        console.log(offset);
-        if(offset >= 0 && offset < 8){
+    async componentDidMount(){
+        let newDate = new Date();
+        let date = newDate.getFullYear() + "-" + ((parseInt(newDate.getMonth()) + 1) < 10 ? ( ("" + parseInt(newDate.getMonth())) + 1) : (parseInt(newDate.getMonth())) + 1)  + "-" + newDate.getDate();
+        this.setState({
+            'showtimes':  await API.getShowTimes(date),
+        });
+    }
+
+    async dayChosen(offset){
 
             let newDate = new Date();
-            console.log(newDate.getDate());
             newDate.setDate(newDate.getDate() + parseInt(offset));
-            let date = newDate.getFullYear() + "-" + newDate.getMonth() + "-" + newDate.getDate();
-            console.log(date);
+            let date = newDate.getFullYear() + "-" + ((parseInt(newDate.getMonth()) + 1) < 10 ? ( ("" + parseInt(newDate.getMonth())) + 1) : (parseInt(newDate.getMonth())) + 1)  + "-" + newDate.getDate();
+            console.log(await API.getShowTimes(date))
             this.setState({
-                'showtimes' : API.getShowTimes(date).showtimes,
+                'showtimes' : await API.getShowTimes(date),
                 'date' : {
                     'year': this.todayDate.getFullYear(),
                     'month': this.todayDate.getMonth(),
@@ -41,8 +45,6 @@ class Repertoire extends React.Component{
                 },
                     'offset': offset
             });
-        }
-
     }
 
 

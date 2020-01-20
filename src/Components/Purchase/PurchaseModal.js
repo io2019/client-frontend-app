@@ -5,7 +5,6 @@ import SeatPicker from "./SeatPicker";
 import ReliefPicker from "./ReliefPicker";
 import Payment from "./Payment";
 import {Container} from "@material-ui/core";
-
 /*      PURCHASE STATES
 *
 *   seatPicker,
@@ -16,13 +15,19 @@ import {Container} from "@material-ui/core";
 class PurchaseModal extends React.Component{
     state = {
         purchaseState: 'seatPicker',
-        showtime: API.getShowtimeById(this.props.id),
         pickedSeats: [],
         pickedReliefs: [],
         alertMsg: "",
+        showtime: null,
         seatsChanged: false,
         clientInfo: {}
     };
+
+    async componentWillMount(){
+        this.setState({
+            showtime:  await API.getShowtimeById(this.props.id)
+        })
+    }
     array1dTo2d = (array, length) => {
         let seats1d = array.map(el => el);
         let seats2d = [];
@@ -60,42 +65,47 @@ class PurchaseModal extends React.Component{
         this.setState({seatsChanged: change});
     };
     handlePaymentSubmit = (client) => {
-      this.setState({clientInfo: client});
+      this.submitPayment(client)
     };
 
+    async submitPayment(client){
+        await API.payment(client, this.state.pickedSeats, this.state.pickedReliefs, this.props.id)
+    }
+
     render() {
-        console.log(this.state.clientInfo);
         let alertMessage;
         let renderedPurchaseState;
-        if(this.state.purchaseState === 'seatPicker') {
-            renderedPurchaseState = <SeatPicker
-                seats={this.array1dTo2d(this.state.showtime.seats, this.state.showtime.width)}
-                width={this.state.showtime.width}
-                pickedSeats={this.state.pickedSeats}
-                onPickSeats={this.handlePickSeats}
-                onNextState={this.handleNextState}
-                onSeatsChange={this.handleChangeSeats}
+        if(this.state.showtime) {
+            if (this.state.purchaseState === 'seatPicker') {
+                renderedPurchaseState = <SeatPicker
+                    seats={this.state.showtime.seats}
+                    width={this.state.showtime.width}
+                    pickedSeats={this.state.pickedSeats}
+                    onPickSeats={this.handlePickSeats}
+                    onNextState={this.handleNextState}
+                    onSeatsChange={this.handleChangeSeats}
                 />
-        } else if (this.state.purchaseState === 'reliefPicker') {
-            renderedPurchaseState = <ReliefPicker
-                pickedSeats={this.state.pickedSeats}
-                pickedReliefs={this.state.pickedReliefs}
-                width={this.state.showtime.width}
-                seatsChanged={this.state.seatsChanged}
-                onPickRelief={this.handlePickReliefs}
-                onNextState={this.handleNextState}
-                onPreviousState={this.handlePreviousState}
-                onSeatsChange={this.handleChangeSeats}
-            />
-        } else if (this.state.purchaseState === 'payment') {
-            renderedPurchaseState = <Payment
-                pickedSeats={this.state.pickedSeats}
-                pickedReliefs={this.state.pickedReliefs}
-                width={this.state.showtime.width}
-                onNextState={this.handleNextState}
-                onPreviousState={this.handlePreviousState}
-                onSubmit={this.handlePaymentSubmit}
-            />
+            } else if (this.state.purchaseState === 'reliefPicker') {
+                renderedPurchaseState = <ReliefPicker
+                    pickedSeats={this.state.pickedSeats}
+                    pickedReliefs={this.state.pickedReliefs}
+                    width={this.state.showtime.width}
+                    seatsChanged={this.state.seatsChanged}
+                    onPickRelief={this.handlePickReliefs}
+                    onNextState={this.handleNextState}
+                    onPreviousState={this.handlePreviousState}
+                    onSeatsChange={this.handleChangeSeats}
+                />
+            } else if (this.state.purchaseState === 'payment') {
+                renderedPurchaseState = <Payment
+                    pickedSeats={this.state.pickedSeats}
+                    pickedReliefs={this.state.pickedReliefs}
+                    width={this.state.showtime.width}
+                    onNextState={this.handleNextState}
+                    onPreviousState={this.handlePreviousState}
+                    onSubmit={this.handlePaymentSubmit}
+                />
+            }
         }
         if(this.state.alertMsg){
             alertMessage = <Alert severity="error">{this.state.alertMsg}</Alert>

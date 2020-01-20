@@ -9,6 +9,39 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import Box from '@material-ui/core/Box';
 import TableRow from '@material-ui/core/TableRow';
+import { makeStyles } from '@material-ui/core/styles';
+
+
+const useStyles = makeStyles({
+    root: {
+        background: 'linear-gradient(45deg, #3f51b5 30%, #1a237e 90%)',
+        borderRadius: 3,
+        border: 0,
+        color: 'white',
+        height: 100,
+        width: 500,
+        padding: '0 30px',
+        margin: "0 auto",
+        display: "block"
+    },
+    label: {
+        textTransform: 'capitalize',
+    },
+});
+function Screen() {
+    const classes = useStyles();
+    return (
+        <Button
+            classes={{
+                root: classes.root, // class name, e.g. `classes-nesting-root-x`
+                label: classes.label, // class name, e.g. `classes-nesting-label-x`
+            }}
+        >
+            SCREEN
+        </Button>
+    );
+
+}
 
 class SeatPicker extends React.Component{
     state = {
@@ -33,7 +66,6 @@ class SeatPicker extends React.Component{
         let newCheckedSeats = this.state.checkedSeats;
         this.setState({seatsChanged: true});
         if(this.isChecked(value)) {
-            console.log(newCheckedSeats);
             newCheckedSeats = this.state.checkedSeats.filter(seat => seat !== value);
             this.setState({checkedSeats: newCheckedSeats});
         } else {
@@ -59,7 +91,8 @@ class SeatPicker extends React.Component{
         return (
             <>
             <h2>SeatPicker</h2>
-                <Table size="small" padding="none">
+                <Screen/>
+                <Table size="small" padding="none" style={{ width: 400, margin: 'auto' }}>
                     <TableBody>
                         <FormControl component={Grid}>
                             {seats2d.map((seatsRow, i) => {
@@ -73,7 +106,7 @@ class SeatPicker extends React.Component{
                                                         return(
                                                             <TableCell size="small">
                                                             <React.Fragment key={width*i+j}>
-                                                                <Checkbox size="small" disabled checked/>
+                                                                <Checkbox size="small" disabled checked></Checkbox>
                                                             </React.Fragment>
                                                             </TableCell>
                                                         )

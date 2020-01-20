@@ -97,8 +97,8 @@ class ReliefPicker extends React.Component {
 
                 {/*</Grid>*/}
                 <Box m={2}>
-                    <Grid item><Button variant="contained" color="secondary" onClick={this.handlePreviousState}>Previous</Button></Grid>
-                    <Grid item><Button variant="contained" color="primary" onClick={this.handleNextState}>Next</Button></Grid>
+                    <Box m={1}><Grid item><Button variant="contained" color="secondary" onClick={this.handlePreviousState}>Previous</Button></Grid></Box>
+                    <Box m={1}><Grid item><Button variant="contained" color="primary" onClick={this.handleNextState}>Next</Button></Grid></Box>
             </Box>
             </>
         )

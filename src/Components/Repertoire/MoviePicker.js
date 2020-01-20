@@ -66,7 +66,7 @@ class MoviePicker extends React.Component{
                                     </TableCell>
                                     <TableCell align="center">
                                         <Button variant="outlined" color="primary" onClick={() => this.handleClickOpen(x.id)}>
-                                            {x.date.getHours()}.{x.date.getMinutes() === 0 ? "00" : x.date.getMinutes()}
+                                            {new Date(x.date).getHours()}:{new Date(x.date).getMinutes()}
                                         </Button>
 
                                     </TableCell>

@@ -8,6 +8,8 @@ import "../../App.css"
 import TextField from "@material-ui/core/TextField";
 import Box from "@material-ui/core/Box";
 
+
+
 class Payment extends React.Component {
 
     state = {
@@ -24,7 +26,8 @@ class Payment extends React.Component {
     seatInRow = (seat) => seat % this.props.width + 1;
 
     handleSubmit = () => {
-        this.props.onSubmit(this.state.client);
+        const client = this.state.client
+        this.props.onSubmit(client);
     };
 
     handleTextChange = (event) => {
@@ -138,7 +141,7 @@ class Payment extends React.Component {
                     <Button disabled={!this.state.isValid} variant="contained" color="primary" onClick={this.handleSubmit} size="large">
                         <SendIcon/>
                         Submit
-                    </Button>git
+                    </Button>
                 </Box>
             </>
         )
